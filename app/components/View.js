@@ -5,16 +5,16 @@ function View(props){
     const [_arrayObj, setOptions] = useState({ ready:false, data:"init" });
     const [_data, setData] = useState({data:{},ready:false});
 
-    //PROP
+    // PROP -> listen to change in array or range
     useEffect(() => {
         if(props.array.ready){
             setData({
-                data: createDataSet(props.array.data, props.select, props.head, props.array.states), 
-                options: createOptions(false, "States"),
+                data: createDataSet(props.array.data, props.select, props.head, props.array.states, props.rangeObj), 
+                options: createOptions(true, "States"),
                 ready:true
             });
         }
-    },[props.array]);
+    },[props.array, props.rangeObj]);
 
     const options={
         showLines:false,
@@ -47,16 +47,20 @@ function createOptions(showLine, xLabel){
                 scaleLabel: {
                     display: true,
                     labelString: xLabel
+                },
+                ticks: {
+                    autoSkip: true,
+                    maxTicksLimit: 5
                 }
             }]
         }     
     };
 }
 
-function createDataSet(array, select, head, states){
+function createDataSet(array, select, head, states, rangeObj){
     // console.log(states);
     const data = {
-        labels: states.slice(0,10),
+        labels: states.slice(rangeObj.start,rangeObj.end),
         datasets: [
             {
                 label: select,
@@ -77,7 +81,7 @@ function createDataSet(array, select, head, states){
                 pointHoverBorderWidth: 2,
                 pointRadius: 5,
                 pointHitRadius: 10,
-                data: array.slice(0,10)
+                data: array.slice(rangeObj.start,rangeObj.end)
             }
         ]
     };
