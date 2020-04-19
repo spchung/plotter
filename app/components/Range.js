@@ -1,10 +1,22 @@
 import React, {useEffect, useState} from 'react';
 
 function Range(props){
-    var val = 10;
+    /*
+    props: dataObj, onUpdate(), rangeObj
+    */
+    // const [_range, setRange] = useState(100);
 
+    var range = props.rangeObj.end - props.rangeObj.start;
     function onChange(e){
-        props.onUpdate(e.target.value)
+        let leftIndex = Number(e.target.value);
+        let rightIndex = leftIndex + range;
+        let retObj = {
+            start: leftIndex,
+            end: rightIndex
+        }
+
+        console.log(retObj);
+        props.onUpdate(retObj);
     }
 
     return (
@@ -12,9 +24,7 @@ function Range(props){
             <input
                 className="slider"
                 type="range"
-                defaultValue={10}
-                min={10}
-                max={20}
+                defaultValue={0}
                 onChange={onChange}>
             </input>
         </div>

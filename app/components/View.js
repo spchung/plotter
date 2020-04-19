@@ -2,6 +2,10 @@ import React, {useEffect, useState, useRef} from 'react';
 import {Line} from 'react-chartjs-2';
 
 function View(props){
+    /*
+    props: head, array, select, rangeObj
+    */
+
     const [_arrayObj, setOptions] = useState({ ready:false, data:"init" });
     const [_data, setData] = useState({data:{},ready:false});
 
@@ -48,9 +52,19 @@ function createOptions(showLine, xLabel){
                     display: true,
                     labelString: xLabel
                 },
+                gridLines : {
+                    drawOnChartArea:false,
+                    drawTicks: true
+                },
                 ticks: {
                     autoSkip: true,
-                    maxTicksLimit: 5
+                    maxTicksLimit: 10
+                }
+            }],
+            yAxes :[{
+                gridLines: {
+                    drawOnChartArea:false,
+                    drawTicks: false
                 }
             }]
         }     

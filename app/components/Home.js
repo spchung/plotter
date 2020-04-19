@@ -2,14 +2,15 @@ import React, { useState, useEffect} from 'react';
 import View from './View.js';
 import Select from './Select';
 import Range from './Range';
+import RangeSetter from './RangeSetter';
 const Processor = require('../libs/Processor');
 
 function Home(){
     var ProcessUtils = new Processor();
-    const [_dataObj, setData] = useState({ data:"", head:"", ready:false });
-    const [_select, setSelect] = useState("init");
-    const [_array, setArray] = useState({states:"init", data:"init", ready:false});
-    const [_range, setRange] = useState({start:0, end:10, prev:0});
+    const [_dataObj, setData] = useState({ data:"", head:"", ready:false }); //input dataset 
+    const [_select, setSelect] = useState("init");  // variable being displayed
+    const [_array, setArray] = useState({states:["init"], data:["init"], ready:false}); // select variable data only
+    const [_range, setRange] = useState({start:0, end:10}); // number of variables displayed at onece 
 
     const handleUpload = () => {
         var fileToLoad = document.getElementById("loader").files[0]
@@ -27,16 +28,13 @@ function Home(){
     }
 
     // set display range
-    const updateSlideVal = function(val){
+    const updateSlideVal = function(rangeObj){
         // val = size of batch 
-        setRange({start:0 ,end: val});
-         
-        // if(val > _range.prev){
-        //     setRange({start: _range.start-val, end: _range.end-val, prev: val});
-        // }
-        // else{
-        //     setRange({start: _range.start+val, end: _range.end+val, prev:val});
-        // }
+        console.log("moving window")
+        setRange({
+            start: rangeObj.start,
+            end: rangeObj.end
+        });
     }
 
     // Data object
@@ -61,7 +59,8 @@ function Home(){
             <input id="loader" type ='file' onChange={handleUpload} autoComplete="off"/>
             <Select variables = {_dataObj.head} status={_dataObj.ready} setSelect={setSelect}/>
             <View head={_dataObj.head} array={_array} select={_select} rangeObj={_range}/>
-            <Range dataObj={_dataObj} onUpdate={updateSlideVal}/>
+            <Range dataObj={_dataObj} onUpdate={updateSlideVal} rangeObj={_range} />
+            <RangeSetter rangeObj={_range} setRange={setRange} dataArray={_array} hasData={_dataObj.ready}/>
         </div>
     )
 };
