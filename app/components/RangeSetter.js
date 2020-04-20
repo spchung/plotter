@@ -8,13 +8,22 @@ function RangeSetter(props){
     const dataLength = props.dataArray.data.length;
 
     function onSliderChange(e){
-        let rightIndex = Number(e.target.value);
+        /* Window RANGE
+
+            The max should be range value - current left Index 
+
+         */
+        let windowRange = Number(e.target.value);
         let leftIndex = props.rangeObj.start;
-        if(rightIndex > dataLength){
-            rightIndex = dataLength;
-        }
+        
+        //set max 
+        let maxWindowRange = dataLength-leftIndex;
+        document.getElementById("window-width-slider").max = maxWindowRange;
+
+        //set right index
+        let rightIndex = leftIndex + windowRange;
+
         props.setRange({start:leftIndex, end:rightIndex});
-        // console.log(leftIndex, rightIndex)
     }
 
     function onTextSubmit(e){
@@ -25,6 +34,7 @@ function RangeSetter(props){
             alert("No input file");
             return;
         }
+
         // update range value
         let rightIndex = props.rangeObj.start + Number(numField.value);
         let leftIndex = props.rangeObj.start;
@@ -36,12 +46,11 @@ function RangeSetter(props){
             rightIndex = rightIndex - diff;
             // console.log(leftIndex, rightIndex, " !!!!!")
         }
-
         //update range 
         props.setRange({start: leftIndex, end: rightIndex});
 
         // update set range slider value 
-        let slider = document.getElementById('range-width-slider');
+        let slider = document.getElementById('window-width-slider');
         slider.value = numField.value;
     }
 
@@ -58,12 +67,15 @@ function RangeSetter(props){
 
     return(
         <div className="range-setter">
-            <button onClick={viewAll}>View All</button>
-            <input id="range-width-slider" type="range" defaultValue={0} min={10} max={dataLength} onChange={onSliderChange}/>
+            View all trees: 
+            <button onClick={viewAll}>View All</button><br/>
+            Adjust window width:
+            <input id="window-width-slider" type="range" defaultValue={0} min={10} max={dataLength} onChange={onSliderChange}/><br/>
+            Input desired window width:
             <form onSubmit={onTextSubmit}>
                 <input 
-                    id="number-range-setter" type="number" 
-                    min={10} max={props.hasData? dataLength : 1000000} onChange={onTextFieldChange}
+                    id="number-range-setter" type="number" defaultValue={10}
+                    min={10} max={props.hasData? dataLength : 100} onChange={onTextFieldChange}
                 />
                 <input type="submit" value="Submit"/>
             </form>

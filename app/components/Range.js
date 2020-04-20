@@ -1,13 +1,23 @@
 import React, {useEffect, useState} from 'react';
 
+// import Test from "./Test";
+
 function Range(props){
     /*
-    props: dataObj, onUpdate(), rangeObj
+    props: dataObj, onUpdate(), rangeObj. dataArrayLength, setRange()
     */
-    // const [_range, setRange] = useState(100);
-
+    
     var range = props.rangeObj.end - props.rangeObj.start;
+    var slideMax = props.dataArrayLength - range;
+    var dataLength = props.dataArrayLength;
+    var slideValue = 0;
+
+    console.log("ON RENDER", props.rangeObj);
+    // props.setRange({start:left, end:right});
+
+    // document.getElementById("window-slider").max = props.slideMax;
     function onChange(e){
+
         let leftIndex = Number(e.target.value);
         let rightIndex = leftIndex + range;
         let retObj = {
@@ -15,17 +25,36 @@ function Range(props){
             end: rightIndex
         }
 
-        console.log(retObj);
+        if(rightIndex > dataLength){
+            let diff = rightIndex - dataLength;
+            rightIndex = rightIndex - diff;
+            // console.log(leftIndex, rightIndex, " !!!!!")
+        }
+
+        slideValue = rightIndex;
+
+        // console.log(retObj);
         props.onUpdate(retObj);
+    }
+
+    useEffect(()=>{
+        document.getElementById("window-slider").max = slideMax;
+    },[props.rangeObj])
+
+    function onChange1(e){
+        console.log(e.target.value); 
     }
 
     return (
         <div>
+        Slide Window: 
             <input
-                className="slider"
+                id="window-slider"
                 type="range"
                 defaultValue={0}
-                onChange={onChange}>
+                max={props.dataObj.ready? slideMax:100}
+                onChange={onChange}
+                >
             </input>
         </div>
     )

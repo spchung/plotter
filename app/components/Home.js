@@ -3,6 +3,7 @@ import View from './View.js';
 import Select from './Select';
 import Range from './Range';
 import RangeSetter from './RangeSetter';
+import TreeTracker from './TreeTracker';
 const Processor = require('../libs/Processor');
 
 function Home(){
@@ -30,7 +31,6 @@ function Home(){
     // set display range
     const updateSlideVal = function(rangeObj){
         // val = size of batch 
-        console.log("moving window")
         setRange({
             start: rangeObj.start,
             end: rangeObj.end
@@ -54,13 +54,19 @@ function Home(){
         }
     },[_select])
 
+    // var range 
+    useEffect(() => {
+        // console.log(_range.start, _range.end);
+    }, [_range])
+
     return(
         <div className="upload">
             <input id="loader" type ='file' onChange={handleUpload} autoComplete="off"/>
-            <Select variables = {_dataObj.head} status={_dataObj.ready} setSelect={setSelect}/>
+            <Select variables={_dataObj.head} status={_dataObj.ready} setSelect={setSelect}/>
             <View head={_dataObj.head} array={_array} select={_select} rangeObj={_range}/>
-            <Range dataObj={_dataObj} onUpdate={updateSlideVal} rangeObj={_range} />
+            <Range dataObj={_dataObj} onUpdate={updateSlideVal} rangeObj={_range} dataArrayLength={_array.data.length} setRange={setRange}/>
             <RangeSetter rangeObj={_range} setRange={setRange} dataArray={_array} hasData={_dataObj.ready}/>
+            <TreeTracker leftIndex ={_range.start} rightIndex={_range.end}/>
         </div>
     )
 };
