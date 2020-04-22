@@ -68,11 +68,11 @@ function RangeSetter(props){
     return(
         <div className="range-setter">
             View all trees: 
-            <button onClick={viewAll}>View All</button><br/>
+            <button id="view-all-btn" onClick={viewAll}>View All</button>
             Adjust window width:
-            <input id="window-width-slider" type="range" defaultValue={0} min={10} max={dataLength} onChange={onSliderChange}/><br/>
+            <input id="window-width-slider" type="range" defaultValue={0} min={10} max={dataLength} onChange={onSliderChange}/>
             Input desired window width:
-            <form onSubmit={onTextSubmit}>
+            <form id="number-range-submit" onSubmit={onTextSubmit}>
                 <input 
                     id="number-range-setter" type="number" defaultValue={10}
                     min={10} max={props.hasData? dataLength : 100} onChange={onTextFieldChange}

@@ -12,7 +12,7 @@ function Range(props){
     var dataLength = props.dataArrayLength;
     var slideValue = 0;
 
-    console.log("ON RENDER", props.rangeObj);
+    // console.log("ON RENDER", props.rangeObj);
     // props.setRange({start:left, end:right});
 
     // document.getElementById("window-slider").max = props.slideMax;
@@ -46,7 +46,7 @@ function Range(props){
     }
 
     return (
-        <div>
+        <div className="range">
         Slide Window: 
             <input
                 id="window-slider"

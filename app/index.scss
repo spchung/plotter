@@ -1,3 +1,23 @@
-#view-port {
-    
+// Convention: 
+// Component level divs uses classes 
+// Other sub-level elements are to be modified using ".className#id"
+
+// Range.js
+.range{
+    display:flex;
 }
+
+// TwoHandleRange.js
+
+
+// RangeSetter.js 
+.range-setter{
+    display:flex;
+    flex-direction: row;
+}
+
+.range-setter#view-all-btn{
+
+}
+
+

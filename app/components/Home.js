@@ -4,6 +4,7 @@ import Select from './Select';
 import Range from './Range';
 import RangeSetter from './RangeSetter';
 import TreeTracker from './TreeTracker';
+import TwoHandleRange from './TwoHandleRange';
 const Processor = require('../libs/Processor');
 
 function Home(){
@@ -11,7 +12,7 @@ function Home(){
     const [_dataObj, setData] = useState({ data:"", head:"", ready:false }); //input dataset 
     const [_select, setSelect] = useState("init");  // variable being displayed
     const [_array, setArray] = useState({states:["init"], data:["init"], ready:false}); // select variable data only
-    const [_range, setRange] = useState({start:0, end:10}); // number of variables displayed at onece 
+    const [_range, setRange] = useState({start:0, end:200}); // number of variables displayed at onece 
 
     const handleUpload = () => {
         var fileToLoad = document.getElementById("loader").files[0]
@@ -64,8 +65,9 @@ function Home(){
             <input id="loader" type ='file' onChange={handleUpload} autoComplete="off"/>
             <Select variables={_dataObj.head} status={_dataObj.ready} setSelect={setSelect}/>
             <View head={_dataObj.head} array={_array} select={_select} rangeObj={_range}/>
+            <TwoHandleRange rangeObj={_range} setRange={setRange} dataReady={_dataObj.ready} maxValue={_array.data.length}/>
             <Range dataObj={_dataObj} onUpdate={updateSlideVal} rangeObj={_range} dataArrayLength={_array.data.length} setRange={setRange}/>
-            <RangeSetter rangeObj={_range} setRange={setRange} dataArray={_array} hasData={_dataObj.ready}/>
+            {/* <RangeSetter rangeObj={_range} setRange={setRange} dataArray={_array} hasData={_dataObj.ready}/> */}
             <TreeTracker leftIndex ={_range.start} rightIndex={_range.end}/>
         </div>
     )

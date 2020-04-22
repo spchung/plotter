@@ -10,8 +10,21 @@ module.exports = {
 
 	module : {
 		rules : [
-			{ test : /\.(js)$/, use:'babel-loader'},
-			{ test : /\.css$/, use:['style-loader', 'css-loader']},
+			{ 
+				test : /\.(js|jsx)$/, 
+				exclude: /node_module/, 
+				use:[{
+					loader: 'babel-loader',
+					options: {
+						presets:['@babel/react'],
+						plugins: ['@babel/plugin-proposal-class-properties']
+					}
+				}],
+			},
+			{ 
+				test : /\.css$/, 
+				use:['style-loader', 'css-loader']
+			},
 			{
 				test: /\.s[ac]ss$/i,
 				use: [
