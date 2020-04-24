@@ -46,7 +46,7 @@ function View(props){
 function createOptions(showLine, xLabel){
     return {
         animation: {
-            duration: 250
+            duration: 0
         },
         showLines: showLine,
         scales: {
