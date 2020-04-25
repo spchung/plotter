@@ -14,7 +14,7 @@ function View(props){
         if(props.array.ready){
             setData({
                 data: createDataSet(props.array.data, props.select, props.head, props.array.states, props.rangeObj), 
-                options: createOptions(true, "States"),
+                options: createOptions(true, "Iterations"),
                 ready:true
             });
         }

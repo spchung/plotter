@@ -43,14 +43,14 @@ function TwoHandleRange(props){
     <div>
         {dataReady ? (
           <div>
-            <label>LowerBound: </label>
+            <div id="text-select-display">
+            <label>Showing iteration </label>
             <input type="number" value={lowerBound} onChange={lowerBoundChange} />
-            <br />
-            <label>UpperBound: </label>
+            <label>to iteration </label>
             <input type="number" value={upperBound} onChange={upperBoundChange} />
-            <br />
             <button onClick={handleApply}>Apply</button>
-            <br /><br />
+            </div>
+            Window Interval
             <Range allowCross={false} value={range} onChange={onSliderChange} max={maxValue}/>
           </div>
         ) : (
