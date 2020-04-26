@@ -4,7 +4,11 @@ import Select from './Select';
 import Range from './Range';
 import RangeSetter from './RangeSetter';
 import TreeTracker from './TreeTracker';
-import TwoHandleRange from './TwoHandleRange';
+import WindowInterval from './WindowInterval';
+import InitInputGroup from './InitInputGroup';
+
+import { FaUpload } from 'react-icons/fa'
+
 const Processor = require('../libs/Processor');
 
 function Home(){
@@ -15,7 +19,7 @@ function Home(){
     const [_range, setRange] = useState({start:0, end:200}); // number of variables displayed at onece 
 
     const handleUpload = () => {
-        var fileToLoad = document.getElementById("loader").files[0]
+        var fileToLoad = document.getElementById("file").files[0]
         var reader = new FileReader();
         reader.onload = (ev) => {
             // callback
@@ -25,6 +29,10 @@ function Home(){
                 data : ProcessUtils.getBody(),
                 ready: true
             });
+
+            // change DOM 
+            const homeDiv = document.getElementById('home-main');
+            homeDiv.id = homeDiv.id + "-active";
         }
         reader.readAsText(fileToLoad)
     }
@@ -61,14 +69,23 @@ function Home(){
     }, [_range])
 
     return(
-        <div className="upload">
-            <input id="loader" type ='file' onChange={handleUpload} autoComplete="off"/>
-            <Select variables={_dataObj.head} status={_dataObj.ready} setSelect={setSelect}/>
-            <View head={_dataObj.head} array={_array} select={_select} rangeObj={_range}/>
-            <TwoHandleRange rangeObj={_range} setRange={setRange} dataReady={_dataObj.ready} maxValue={_array.data.length}/>
-            <Range dataObj={_dataObj} onUpdate={updateSlideVal} rangeObj={_range} dataArrayLength={_array.data.length} setRange={setRange}/>
-            {/* <RangeSetter rangeObj={_range} setRange={setRange} dataArray={_array} hasData={_dataObj.ready}/> */}
-            <TreeTracker leftIndex ={_range.start} rightIndex={_range.end}/>
+        <div className="home" id="home-main">
+            {_dataObj.ready ? 
+                ( <div>
+                    <View head={_dataObj.head} array={_array} select={_select} rangeObj={_range}/>
+                    <WindowInterval rangeObj={_range} setRange={setRange} dataReady={_dataObj.ready} maxValue={_array.data.length}/>
+                    <Range dataObj={_dataObj} onUpdate={updateSlideVal} rangeObj={_range} dataArrayLength={_array.data.length} setRange={setRange}/> 
+                    <div id="input-select">
+                        <input name="file" id="file" type ='file' hidden onChange={handleUpload} autoComplete="off"/>
+                        <label htmlFor="file" id="input-label"> <FaUpload/> Choose File </label>
+                        <Select variables={_dataObj.head} status={_dataObj.ready} setSelect={setSelect}/>
+                    </div>
+                  </div>
+
+                ) : ( 
+            
+                <InitInputGroup handleUpload={handleUpload}/> )
+            }
         </div>
     )
 };

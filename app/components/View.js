@@ -1,4 +1,5 @@
 import React, {useEffect, useState, useRef} from 'react';
+import useWindowDimensions from '../utils/useWindowDimensions'
 import {Line} from 'react-chartjs-2';
 
 function View(props){
@@ -8,6 +9,9 @@ function View(props){
 
     const [_arrayObj, setOptions] = useState({ ready:false, data:"init" });
     const [_data, setData] = useState({data:{},ready:false});
+
+    //get height: 
+    const [windowWidth, windowHeight] = Object.values(useWindowDimensions());
 
     // PROP -> listen to change in array or range
     useEffect(() => {
@@ -32,12 +36,14 @@ function View(props){
         }     
     };
 
+    const W='50%';
+
     return (
-        <div>
+        <div className="view" id="component">
             {_data.ready ? (
-                <Line data={_data.data} options={_data.options}/>
+                <Line height={windowHeight/7} id="line-graph" data={_data.data} options={_data.options}/>
             ) : (
-                <p> No Input File </p>
+                <div id="no-input-div"> No Input File </div>
             )}
         </div>
     );
@@ -70,7 +76,8 @@ function createOptions(showLine, xLabel){
                     drawTicks: false
                 }
             }]
-        }     
+        },
+        responsive: true   
     };
 }
 

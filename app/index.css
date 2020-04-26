@@ -1,0 +1,139 @@
+html {
+  height: 100%;
+  --bg: nth($Light,1);
+  --bg-panel: nth($Light,2);
+  --color-headnig: nth($Light,3);
+  --color-text: nth($Light,4);
+}
+
+body {
+  height: 100%;
+  background-color: #121212;
+}
+
+#app {
+  height: 100%;
+}
+
+#home-main.home {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  min-height: 100%;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#home-main-active.home {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  min-height: 100%;
+}
+
+.home-no-graph {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+.home #input-select {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.home #input-label {
+  font-size: 15px;
+  font-weight: 700;
+  color: white;
+  background-color: #38AECC;
+  padding: 5px;
+  border-radius: 7px;
+  display: inline-block;
+}
+
+.home #input-label:hover {
+  cursor: pointer;
+}
+
+.input-group {
+  width: 50%;
+  min-height: 400px;
+  -ms-flex-item-align: center;
+      align-self: center;
+  background-color: rgba(255, 255, 255, 0.15);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.input-group #theme-changer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+.input-group #project-name {
+  color: #ececec;
+  text-align: center;
+}
+
+.input-group #project-description {
+  padding: 0 10px 0 10px;
+}
+
+.range {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.range #window-slider {
+  width: 25%;
+}
+
+.range-setter {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.view #component {
+  min-height: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.view #line-graph {
+  height: 500px;
+}
+
+.view #no-input-div {
+  min-height: 100%;
+}
+/*# sourceMappingURL=index.css.map */
